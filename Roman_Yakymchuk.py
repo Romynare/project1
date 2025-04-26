@@ -70,3 +70,31 @@ def gameLoop():
             game_over = True
         if not game_over:
             dis.fill(black)
+            pygame.draw.rect(dis,red,[foodx,foody,snake_block,snake_block])
+            snake_head = []
+            snake_head.append(x1)
+            snake_head.append(y1)
+            snake_list.append(snake_head)
+            if len(snake_list) > length_of_snake:
+                del snake_list[0]
+            for x in snake_list[:-1]:
+                if x == snake_head:
+                    game_over = True
+            our_snake(snake_block, snake_list)
+            Your_score(length_of_snake - 1)
+            pygame.display.update()
+            if x1 == foodx and foody:
+                foodx = round(random,randrange(0,dis_width - snake_block))
+                foody = round(random.randrange(0, dis_height - snake_block))
+                length_of_snake += 1
+            clock.tick(snake_speed)
+    fill(light_red)
+    massage ("You Lost!Your Score: "+  str(length_of_snake - 1),black)
+    pygame.display.update()
+    sleep(2)
+while True:
+    try:
+        gameLoop()
+    except Exception as e:
+        pygame.quit()
+        break
